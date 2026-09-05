@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mecentral"
+version = "0.1.0"
+description = "Official MeCentral API client: vault deposits, custody grants, People Graph, webhooks."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+keywords = ["mecentral", "vault", "custody", "documents", "sdk", "api-client"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://mecentral.org/developers/sdks"
+Documentation = "https://mecentral.org/developers/api"
+Repository = "https://github.com/mecentral/mecentral-sdk-python"
+Issues = "https://github.com/mecentral/mecentral-sdk-python/issues"
+
+[tool.setuptools.packages.find]
+include = ["mecentral*"]
+
+[tool.setuptools.package-data]
+mecentral = ["py.typed"]
