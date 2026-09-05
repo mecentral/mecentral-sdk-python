@@ -7,6 +7,11 @@ name: publish
 on:
   push:
     tags: ['v*']
+  # Manual re-run from the Actions tab or `gh workflow run publish.yml --ref vX.Y.Z`
+  # for a tag that was pushed before the trusted publisher existed. The tag
+  # check below still runs, so a dispatch on `main` fails unless main IS the
+  # tagged commit.
+  workflow_dispatch:
 jobs:
   publish:
     runs-on: ubuntu-latest
