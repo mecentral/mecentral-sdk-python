@@ -90,13 +90,20 @@ class MeCentral:
         scopes: Optional[Sequence[str]] = None,
         ttl_days: Optional[int] = None,
         rotate: Optional[bool] = None,
+        mode: Optional[str] = None,
+        operator_reason: Optional[str] = None,
         base_url: str = DEFAULT_BASE_URL,
         timeout: float = 30.0,
     ) -> Dict[str, Any]:
-        """Self-service SANDBOX provisioning for proof-of-concept builds.
+        """Self-service provisioning for build sessions.
 
-        Authenticates with the operator token (INTEGRATION_PROVISION_TOKEN),
-        not an API key. The raw key is in the response and nowhere else.
+        SANDBOX by default (mec_sbx_); ``mode="production"`` mints a mec_prd_
+        key when the door's operator has switched production on, and then
+        ``operator_reason`` (whose accounts, what is live) is required and
+        recorded. Authenticates with the operator token
+        (INTEGRATION_PROVISION_TOKEN), not an API key; the door answers only
+        to allowlisted source addresses. The raw key is in the response and
+        nowhere else.
         """
         body: Dict[str, Any] = {"slug": slug}
         if name is not None:
@@ -109,6 +116,10 @@ class MeCentral:
             body["ttl_days"] = ttl_days
         if rotate is not None:
             body["rotate"] = rotate
+        if mode is not None:
+            body["mode"] = mode
+        if operator_reason is not None:
+            body["operator_reason"] = operator_reason
 
         url = base_url.rstrip("/") + "/integrations/provision"
         req = urllib.request.Request(
